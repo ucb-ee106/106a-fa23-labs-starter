@@ -1,0 +1,6 @@
+[submodule "ar_track_alvar"]
+	path = ar_track_alvar
+	url = https://github.com/ros-perception/ar_track_alvar.git
+[submodule "usb_cam"]
+	path = usb_cam
+	url = https://github.com/ros-drivers/usb_cam.git
