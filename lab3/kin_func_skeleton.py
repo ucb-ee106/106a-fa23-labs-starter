@@ -105,12 +105,6 @@ def skew_3d(omega):
     """
 
     # YOUR CODE HERE
-    if not omega.shape == (3,):
-        raise TypeError('omega must be a 3-vector')
-
-    return np.array([[0, -omega[2], omega[1]],
-                    [omega[2], 0, -omega[0]],
-                    [-omega[1], omega[0], 0]])
 
 def rotation_3d(omega, theta):
     """
@@ -125,13 +119,6 @@ def rotation_3d(omega, theta):
     """
 
     # YOUR CODE HERE
-    if not omega.shape == (3,):
-        raise TypeError('omega must be a 3-vector')
-    
-    hat_u = skew_3d(omega)
-    theta = theta * np.linalg.norm(omega)
-    hat_u = hat_u / np.linalg.norm(omega)
-    return np.eye(3) + hat_u * np.sin(theta) + np.dot(hat_u, hat_u) * (1 - np.cos(theta))
 
 def hat_3d(xi):
     """
@@ -145,15 +132,6 @@ def hat_3d(xi):
     """
 
     # YOUR CODE HERE
-    if not xi.shape == (6,):
-        raise TypeError('xi must be a 6-vector')
-
-    v = xi[:3]
-    w = xi[3:]
-    xi_hat = np.zeros((4, 4))
-    xi_hat[:3, :3] = skew_3d(w)
-    xi_hat[:3, 3] = v
-    return xi_hat
 
 def homog_3d(xi, theta):
     """
@@ -168,24 +146,6 @@ def homog_3d(xi, theta):
     """
 
     # YOUR CODE HERE
-    if not xi.shape == (6,):
-        raise TypeError('xi must be a 6-vector')
-
-    v = xi[:3]
-    w = xi[3:]
-    I = np.eye(3)
-    if np.allclose(w, 0):
-        # Pure translation
-        R = I
-        p = v * theta
-    else:
-        # Translation and rotation
-        R = rotation_3d(w, theta)
-        p = (1/np.square(np.linalg.norm(w))) * ((np.dot(np.dot((I - R), skew_3d(w)), v)) + theta * np.dot(np.outer(w, w), v))
-    g = np.eye(4)
-    g[:3, :3] = R
-    g[:3, 3] = p
-    return g
 
 
 def prod_exp(xi, theta):
@@ -202,18 +162,6 @@ def prod_exp(xi, theta):
     """
 
     # YOUR CODE HERE
-    if not xi.shape[0] == 6:
-        raise TypeError('xi must be a Nx6')
-    if not xi.shape[1] == theta.shape[0]:
-        raise TypeError('there must be the same number of twists as joint angles.')
-
-    g = np.eye(4)
-    for i in range(xi.shape[1]):
-        xi_i = xi[:, i]
-        theta_i = theta[i]
-        g_i = homog_3d(xi_i, theta_i)
-        g = np.dot(g, g_i)
-    return g
 
 #---------------------------------TESTING CODE---------------------------------
 #-------------------------DO NOT MODIFY ANYTHING BELOW HERE--------------------
