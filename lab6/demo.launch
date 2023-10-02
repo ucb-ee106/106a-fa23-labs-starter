@@ -1,0 +1,53 @@
+<launch>
+  <!-- Frames of reference. -->
+  <arg name="fixed_frame" default="odom" />
+  <arg name="sensor_frame" default="base_link" />
+
+  <!-- Topics. -->
+  <arg name="sensor_topic" default="/scan" />
+  <arg name="vis_topic" default="/vis/map" />
+
+  <!-- Dimensions and bounds. -->
+  <arg name="x_num" default="25" />
+  <arg name="x_min" default="-10.0" />
+  <arg name="x_max" default="10.0" />
+  <arg name="y_num" default="25" />
+  <arg name="y_min" default="-10.0" />
+  <arg name="y_max" default="10.0" />
+
+  <!-- Update parameters. -->
+  <arg name="occupied_update" default="0.7" />
+  <arg name="occupied_threshold" default="0.97" />
+  <arg name="free_update" default="0.3" />
+  <arg name="free_threshold" default="0.03" />
+
+  <!-- Random fraction of scan rays to process (a hack for speed). -->
+  <arg name="random_downsample" default="0.1" />
+
+  <!-- Mapper node. -->
+  <node name="mapper"
+        pkg="mapping"
+        type="mapping_node.py"
+        output="screen">
+
+    <param name="frames/fixed" value="$(arg fixed_frame)" />
+    <param name="frames/sensor" value="$(arg sensor_frame)" />
+
+    <param name="topics/vis" value="$(arg vis_topic)" />
+    <param name="topics/sensor" value="$(arg sensor_topic)" />
+
+    <param name="x/num" value="$(arg x_num)" />
+    <param name="x/min" value="$(arg x_min)" />
+    <param name="x/max" value="$(arg x_max)" />
+    <param name="y/num" value="$(arg y_num)" />
+    <param name="y/min" value="$(arg y_min)" />
+    <param name="y/max" value="$(arg y_max)" />
+
+    <param name="update/occupied" value="$(arg occupied_update)" />
+    <param name="update/occupied_threshold" value="$(arg occupied_threshold)" />
+    <param name="update/free" value="$(arg free_update)" />
+    <param name="update/free_threshold" value="$(arg free_threshold)" />
+
+    <param name="random_downsample" value="$(arg random_downsample)" />
+  </node>
+</launch>
