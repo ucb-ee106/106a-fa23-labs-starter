@@ -12,7 +12,7 @@ def fk_service_client():
     fk_request = SolvePositionFKRequest()
     joints = JointState()
     # YOUR CODE HERE
-    joints.name = 
+    joints.name = ['right_j0', 'right_j1', 'right_j2', 'right_j3','right_j4', 'right_j5', 'right_j6']
     joint_input = []
     joints.position = joint_input
     # Add desired pose for forward kinematics
