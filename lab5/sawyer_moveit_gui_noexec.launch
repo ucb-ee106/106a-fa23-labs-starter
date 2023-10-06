@@ -5,6 +5,7 @@
     <arg name="load_robot_description" value="true"/>
   </include>
 
+  <group if="$(eval env('ROS_SAWYER_SIM') != 'false')">
   <!-- If needed, broadcast static tf for robot root -->
   <node pkg="tf2_ros" type="static_transform_publisher" name="virtual_joint_broadcaster_1" args="0 0 0 0 0 0 world base" />
 
@@ -18,6 +19,7 @@
   
   <!-- This publishes a fake robot state to tf --> 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
+  </group>
 
   <!-- This is the main moveit launch file, which launches all the planning functionality.
   Note that we disable execution, since the fake execution doens't work anyways -->
