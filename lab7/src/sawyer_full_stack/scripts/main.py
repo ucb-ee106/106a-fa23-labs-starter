@@ -158,7 +158,7 @@ def main():
     parser.add_argument('-ar_marker', '-ar', nargs='+', help=
         'Which AR marker to use.  Default: 1'
     )
-    parser.add_argument('-controller_name', '-c', type=str, default='moveit', 
+    parser.add_argument('-controller', '-c', type=str, default='moveit', 
         help='Options: moveit, open_loop, pid.  Default: moveit'
     )
     parser.add_argument('-rate', type=int, default=200, help="""
