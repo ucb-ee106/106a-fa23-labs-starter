@@ -76,7 +76,7 @@ class ObjectDetector:
         except Exception as e:
             print("Error:", e)
 
-    def rgb_to_hsv(rgb_threshold):
+    def rgb_to_hsv(self, rgb_threshold):
         # Convert the RGB numpy array to an HSV numpy array.
         hsv_threshold = cv2.cvtColor(np.uint8([[rgb_threshold]]), cv2.COLOR_RGB2HSV)[0][0]
         return hsv_threshold
@@ -95,11 +95,11 @@ class ObjectDetector:
         upper_hsv = self.rgb_to_hsv(upper_rgb)
 
         # TODO: Threshold the image to get only cup colors
-        # HINT: Lookup np.where() or cv2.inRange()
+        # HINT: Lookup cv2.inRange() or np.where()
         mask = ...
 
         # TODO: Get the coordinates of the cup points on the mask
-        # HINT: Lookup np.nonzero() or np.where()
+        # HINT: Lookup np.where() or np.nonzero()
         y_coords, x_coords = ...
 
         # If there are no detected points, exit
@@ -131,6 +131,7 @@ class ObjectDetector:
                 if X_odom < 0.001 and X_odom > -0.001:
                     print("Erroneous goal point, not publishing")
                 else:
+                    print("Publishing goal point: ", X_odom, Y_odom, Z_odom)
                     # Publish the transformed point
                     self.point_pub.publish(Point(X_odom, Y_odom, Z_odom))
 

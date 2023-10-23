@@ -84,7 +84,7 @@ def controller(waypoint):
 
       # Process trans to get your state error
       # Generate a control command to send to the robot
-      
+      x_error = waypoint_in_base_link.pose.position.x
       error = ## TODO: what are two values that we can use for this np.array, and what are the dimensions
       
       # proportional term
