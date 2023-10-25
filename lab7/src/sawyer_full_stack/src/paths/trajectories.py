@@ -157,7 +157,7 @@ class LinearTrajectory(Trajectory):
         self.goal_position = goal_position
         self.distance = self.goal_position - self.start_position
         self.acceleration = (self.distance * 4.0) / (self.total_time ** 2) # keep constant magnitude acceleration
-        self.v_max = (self.total_time / 2.0) * self.acc # maximum velocity magnitude
+        self.v_max = (self.total_time / 2.0) * self.acceleration # maximum velocity magnitude
         self.desired_orientation = np.array([0, 1, 0, 0])
 
     def target_pose(self, time):
@@ -229,7 +229,7 @@ class CircularTrajectory(Trajectory):
         self.center_position = center_position
         self.radius = radius
         self.angular_acceleration = (2 * np.pi * 4.0) / (self.total_time ** 2) # keep constant magnitude acceleration
-        self.angular_v_max = (self.total_time / 2.0) * self.acc # maximum velocity magnitude
+        self.angular_v_max = (self.total_time / 2.0) * self.angular_acceleration # maximum velocity magnitude
         self.desired_orientation = np.array([0, 1, 0, 0])
 
     def target_pose(self, time):
