@@ -51,7 +51,8 @@ def controller(waypoint):
   # Loop until the node is killed with Ctrl-C
   while not rospy.is_shutdown():
     try:
-      trans_odom_to_base_link = ## TODO: create a transform between odom to base link
+      #                                              target_frame, source_frame, current_time_in_ros
+      trans_odom_to_base_link = tfBuffer.lookup_transform(..., ..., rospy.Time()) ## TODO: create a transform between odom to base link
 
       (roll, pitch, baselink_yaw) = tf.transformations.euler_from_quaternion(
         [trans_odom_to_base_link.transform.rotation.x, trans_odom_to_base_link.transform.rotation.y,
@@ -112,6 +113,7 @@ def controller(waypoint):
       pub.publish(control_command)
 
       if ... : ##TODO: what is our stopping condition/how do we know to go to the next waypoint?
+        print("Moving to next waypoint in trajectory")
         return
 
     except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException) as e:
