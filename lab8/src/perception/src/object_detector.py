@@ -43,7 +43,7 @@ class ObjectDetector:
         rospy.spin()
 
     def camera_info_callback(self, msg):
-        # TODO: Extract the intrinsic parameters from the CameraInfo message
+        # TODO: Extract the intrinsic parameters from the CameraInfo message (look this message type up online)
         self.fx = ...
         self.fy = ...
         self.cx = ...
@@ -76,11 +76,6 @@ class ObjectDetector:
         except Exception as e:
             print("Error:", e)
 
-    def rgb_to_hsv(self, rgb_threshold):
-        # Convert the RGB numpy array to an HSV numpy array.
-        hsv_threshold = cv2.cvtColor(np.uint8([[rgb_threshold]]), cv2.COLOR_RGB2HSV)[0][0]
-        return hsv_threshold        
-
     def process_images(self):
         # Convert the color image to HSV color space
         hsv = cv2.cvtColor(self.cv_color_image, cv2.COLOR_BGR2HSV)
@@ -88,17 +83,17 @@ class ObjectDetector:
         # NOTE: You can visualize how this is performing by viewing the result of the segmentation in rviz
         # To see the current HSV values in the center row of the image (where your cup should be), we will print out
         # the HSV mean of the HSV values of the center row. You should add at least +/- 10 to the current values to define your range.
-        mean_hsv_val = np.mean()
-        print("Current mean values at center row of image: ", np.mean(hsv[len(hsv)//2], axis=0))
+        mean_center_row_hsv_val = np.mean(hsv[len(hsv)//2], axis=0)
+        print("Current mean values at center row of image: ", mean_center_row_hsv_val)
         lower_hsv = np.array(...)
-        upper_hsv = np.array(...)
+        upper_hsv = np.array(160, 255, 255)
 
         # TODO: Threshold the image to get only cup colors
         # HINT: Lookup cv2.inRange() or np.where()
         mask = ...
 
         # TODO: Get the coordinates of the cup points on the mask
-        # HINT: Lookup np.where() or np.nonzero()
+        # HINT: Lookup np.nonzero()
         y_coords, x_coords = ...
 
         # If there are no detected points, exit
