@@ -80,12 +80,14 @@ def plan_curved_trajectory(target_position):
             trans = ## TODO: apply a lookup transform between our world frame and turtlebot frame
             print(trans)
             break
-        except:
-            pass
+        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException) as e:
+            print("TF Error: " + e)
+            continue
     x1, y1 = trans.transform.translation.x, trans.transform.translation.y
     (roll, pitch, yaw) = tf.transformations.euler_from_quaternion(
         [trans.transform.rotation.x, trans.transform.rotation.y,
             trans.transform.rotation.z, trans.transform.rotation.w])
+    
     
     x2 = ## TODO: how would you get x2 from our target position? remember this is relative to x1 
     y2 = ## TODO: how would you get x2 from our target position? remember this is relative to x1 

@@ -82,14 +82,15 @@ class ObjectDetector:
         # TODO: Define range for cup color in HSV
         # NOTE: You can visualize how this is performing by viewing the result of the segmentation in rviz
         # To see the current HSV values in the center row of the image (where your cup should be), we will print out
-        # the HSV mean of the HSV values of the center row. You should add at least +/- 10 to the current values to define your range.
+        # the HSV mean of the HSV values of the center row. You should add at least +/- 10 to the current Hue value and
+        # +/- 80 to the current Saturation and Value values to define your range.
         mean_center_row_hsv_val = np.mean(hsv[len(hsv)//2], axis=0)
         print("Current mean values at center row of image: ", mean_center_row_hsv_val)
-        lower_hsv = np.array(...)
-        upper_hsv = np.array(160, 255, 255)
+        lower_hsv = np.array(...) # TODO: Define lower HSV values for cup color
+        upper_hsv = np.array(...) # TODO: Define upper HSV values for cup color
 
         # TODO: Threshold the image to get only cup colors
-        # HINT: Lookup cv2.inRange() or np.where()
+        # HINT: Lookup cv2.inRange()
         mask = ...
 
         # TODO: Get the coordinates of the cup points on the mask
